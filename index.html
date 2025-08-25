@@ -5,58 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu Super Açaiajin</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="_css/style.css">
 </head>
 
 <body>
-    <div>
-        <table>
-            <label>Tabela de Valores</label>
-            <tr>
-                <th>Tamanho</th>
-                <th>ml</th>
-                <th>Valor</th>
-            </tr>
-            <tr>
-                <td>Tamanho P</td>
-                <td>300ml</td>
-                <td>R$10,00</td>
-            </tr>
-            <tr>
-                <td>Tamanho M</td>
-                <td>500ml</td>
-                <td>R$15,00</td>
-            </tr>
-            <tr>
-                <td>Tamanho G</td>
-                <td>700ml</td>
-                <td>R$20,00</td>
-            </tr>
-        </table>
+    <div id="superior">
+        <h1>Menu de Valores Super Açaíajin</h1>
+        <img id="img" src="_imagens/download.png" alt="">
     </div>
-    <div>
+
+    <div class="corpo">
+
+        <div class="copos">
+            <table>
+                <tr>
+                    <th>Tabela de valores</th>
+                </tr>
+                <tr>
+                    <th>Tamanho</th>
+                    <th>ml</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Tamanho P</td>
+                    <td>300ml</td>
+                    <td>R$10,00</td>
+                </tr>
+                <tr>
+                    <td>Tamanho M</td>
+                    <td>500ml</td>
+                    <td>R$15,00</td>
+                </tr>
+                <tr>
+                    <td>Tamanho G</td>
+                    <td>700ml</td>
+                    <td>R$20,00</td>
+                </tr>
+            </table>
+
+
+        </div>
         <input type="text" id="escolha" placeholder="Digite o tamanho do açaí">
         <button onclick="valorT()">Obter Valor</button>
         <p id="val"></p>
+        <div class="pagamento">
+            <label><br>
+                Forma de Pagamento <br><br>
+                D. para pagar com dinheiro <br>
+                C. para pagar com cartão
 
-        <label>Digite: <br>
-            C. para pagar com cartão <br>
-            D. para pagar com dinheiro
-            <br>
-        </label>
-        <input type="text" id="pagamento">
-        <button onclick="pag()">confirmar</button>
+                <br>
+            </label>
+            <input type="text" id="pagamento">
+            <button onclick="pag()">confirmar</button>
+        </div>
     </div>
 
 
-
-
-
-
-
     <script>
-        let valor = 0;
-        function valorT(valor) {
+        var valor = 0;
+        function valorT() {
 
             let inp = document.getElementById('escolha').value;
 
@@ -69,24 +77,42 @@
             if (inp == "g" || inp == "G") {
                 valor = 20;
             }
-            document.getElementById('val').textContent = "O valor inserido é: " + valor;
+            document.getElementById('val').textContent = "O valor a ser pago é de R$:" + valor;
         }
 
 
         function pag() {
-            let inp2 = document.getElementById('pagamento').value.toLowerCase();
-            let letra = "";
-            let pg = 0
+            var inp2 = document.getElementById('pagamento').value.toLowerCase();
+            var letra = "";
+            var pg = 0;
+            var pgt = 0;
+            valorT();
             switch (inp2) {
                 case 'c':
-                    pg = parseFloat(prompt("Qual foi o valor pago"));
+                    pg = (valor * 5) / 100;
+                    pgt = pg + valor;
+                    alert("Obrigado pela compra valor pago de R$:" + pgt);
                     break;
                 case 'd':
                     pg = parseFloat(prompt("Qual foi o valor pago"));
+                    if (pg == valor) {
+                        alert("Obrigado pela compra!!");
+                    }
+                    if (pg < valor) {
+                        let falta = valor - pg;
+                        alert("Faltam R$:" + falta + " para pagar seu açaí");
+                    }
+                    if (pg > valor) {
+                        let mais = pg - valor;
+                        alert("Você tem um troco a receber de R$:" + mais)
+                    }
+                    console.log(pg);
                     break;
                 default:
                     alert("Forma de pagamento inválida");
+                    break
             }
+
         }
     </script>
 
